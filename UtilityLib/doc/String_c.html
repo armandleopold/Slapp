@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./String.c</title>
+<!-- Source: ./String.c -->
+<!-- Generated with ROBODoc Version 4.99.34 (Jan  4 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Utility Library</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+<a class="menuitem" href="./robo_types.html#top">Types</a>
+<a class="menuitem" href="./robo_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<hr />
+<a name="SWL2fString">
+</a><a name="robo9"></a><h2>SWL/String [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">INTRODUCTION</p>
+<pre>      Standard string.h functions are next to useless, and extremely dangerous for
+      some (strcpy() and strncpy() at least).
+
+      Functions that might still be interesting in string.h are :
+      - memset  : set a chunk of memory to a specified byte value.
+      - memcpy  : copy chunk of memory.
+      - memmove : like memcpy with overlapping check.
+      - memchr  : search for a character in a chunk of memory.
+      - strstr  : search for a substring in a c string.
+      - strchr  : like memchr, but in a c string.
+      - strrchr : last occurency of a character in a c string.
+      - strcmp  : compare case-sensitively two c strings.
+      - strncmp : compare two strings with maximal length check.
+      - strcasecmp : compare case-insensitively two c strings.
+      - strncasecmp
+
+      Be careful with following functions :
+      - strcpy  : if you REALLY know the size of your string.
+      - strcat  : append a string to another one. You have to check space
+                  yourself.
+
+      AVOID :
+      - strncpy : history may have forgotten it's purpose.
+      - strncat : the count parameter is often misused.
+</pre>
+
+<hr />
+<a name="String2fAssignStrings">
+</a><a name="robo76"></a><h2>String/AssignStrings [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">String</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>AssignStrings</strong> - Copy strings and fill an array pointing to their location.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      void <strong>AssignStrings</strong>(STRPTR * list, void * buffer, ...);
+</pre>
+<p class="item_name">FUNCTION</p>
+<pre>      Copy the NULL-terminated list of strings passed as varargs. Strings will
+      be copied, starting at 'buffer'. 'list' will be filled to point to the
+      start of each string copied.
+</pre>
+<p class="item_name">INPUT</p>
+<pre>      list   - Array that will point the start of each string copied.
+      buffer - Start of buffer where string will be copied one after the other.
+      ...    - list of string to copy.
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>      This function is useful for object initialization, which contains a lot of
+      strings. Like :
+              MyObject obj = malloc(sizeof *obj + <a href="#robo86">StrLenM</a>(str1, str2, str3, NULL) + 3);
+
+              if (obj)
+              {
+                      <strong>AssignStrings</strong>(&amp;obj-&gt;str1_field, obj + 1, str1, str2, str3, NULL);
+                      // ...
+              }
+
+      This assume that MyObject is a structure containing a STRPTR field 'str1_field'
+      and followed by two fields of the same kind.
+</pre>
+
+<hr />
+<a name="String2fCopyString">
+</a><a name="robo77"></a><h2>String/CopyString [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">String</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">INTRODUCTION</p>
+<pre>      <strong>CopyString</strong> - decent replacement for strncpy(). Keep your head safe.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      void <strong>CopyString</strong>(STRPTR destination, STRPTR source, int max);
+</pre>
+<p class="item_name">FUNCTION</p>
+<pre>      Purpose of this function is rather simple: copy string "source" into
+      "destination", writing no more "max" character (including 0), ensuring
+      that destination will be always NULL-terminated.
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>      <a href="#robo81">RawDoFmt</a>, <a href="./Encodings_c.html#robo49">CopyStringEnc</a>
+</pre>
+
+<hr />
+<a name="String2fFindInList">
+</a><a name="robo78"></a><h2>String/FindInList [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">String</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>FindInList</strong> - Simple way to convert string to integer
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      int <strong>FindInList</strong>(STRPTR list, STRPTR word, int len);
+</pre>
+<p class="item_name">INPUT</p>
+<pre>      list - string encoded list, with words separated by comma.
+      word - whole word to be matched case-insentively in the list.
+      len  - bytes length of word to compare (&lt;= 0 to compare strlen(word) first
+         bytes).
+</pre>
+<p class="item_name">RESULT</p>
+<pre>      0 if word matched with first item of list, 1 if matched with second, ...
+      -1 if matched with nothing.
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>      <strong>FindInList</strong>("apple,orange,pear", "orange", 0);
+              =&gt; returns 1
+
+      <strong>FindInList</strong>("apple,orange,pear,oran", "orange", 4);
+              =&gt; returns 3 (words must match wholy).
+</pre>
+<p class="item_name">NOTE</p>
+<pre>      Words of the list should not contains leading or starting spaces. Otherwise
+      they will be considered being part of word. I.e. : "word, separated, list"
+      will be composed of words "word", " separated" and " list".
+</pre>
+
+<hr />
+<a name="String2fFnMatch">
+</a><a name="robo79"></a><h2>String/FnMatch [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">String</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>FnMatch</strong> - Match <a href="./DOS_c.html#robo3">DOS</a> pattern against a string
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      Bool <strong>FnMatch</strong>(STRPTR pattern, STRPTR string, int flags);
+</pre>
+<p class="item_name">FUNCTION</p>
+<pre>      This function is like fnmatch(3).
+</pre>
+<p class="item_name">RESULT</p>
+<pre>      True if pattern matched the string, False otherwise.
+</pre>
+
+<hr />
+<a name="String2fNthWord">
+</a><a name="robo80"></a><h2>String/NthWord [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">String</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>NthWord</strong> - return pointer to nth word in a string
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      STRPTR <strong>NthWord</strong>(STRPTR str, int nth, int chr);
+</pre>
+<p class="item_name">FUNCTION</p>
+<pre>      Search for nth word (where n is 0-based. I.e. 0 is first item), in 'chr'
+      separated list, encoded as string.
+</pre>
+<p class="item_name">RESULT</p>
+<pre>      Pointer within string pointing to start of nth item or NULL if list is
+      too small.
+</pre>
+
+<hr />
+<a name="String2fRawDoFmt">
+</a><a name="robo81"></a><h2>String/RawDoFmt [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">String</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>RawDoFmt</strong> - printf-like function with buffer allocation.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      STRPTR <strong>RawDoFmt</strong>(STRPTR format, va_list * args);
+</pre>
+<p class="item_name">FUNCTION</p>
+<pre>      This function will call printf on the format and to the arguments passed,
+      allocating a large enough buffer to hold the result.
+
+      Since orginal libc printf() is used, you can use almost all possible
+      format specifier, including the nasty positionnal arguments. There is
+      one restriction : the argument size specifier. Actually for portability
+      only the following size specifier are recognized :
+      - h, hh, l, ll, L
+
+      This is because <strong>RawDoFmt</strong> will modify 'args' so that applying va_arg on
+      it, will give you the next argument passed in the var arg list.
+</pre>
+<p class="item_name">RESULT</p>
+<pre>      Formatted string into a malloc()'ed buffer, that you must free yourself.
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>      printf(3)
+</pre>
+
+<hr />
+<a name="String2fStrCatDup">
+</a><a name="robo82"></a><h2>String/StrCatDup [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">String</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>StrCatDup</strong> - catenate a list of strings into a malloc()'ed buffer
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      Bool <strong>StrCatDup</strong>(STRPTR * buffer, int c, ...);
+</pre>
+<p class="item_name">FUNCTION</p>
+<pre>      This function will catenate NULL-terminated vararg list of strings and
+      alloc a buffer large enough to hold the result. You can specify a
+      character that will be inserted between, unless the string has already
+      a such character at the end.
+</pre>
+<p class="item_name">INPUT</p>
+<pre>      buffer - pointer to allocated buffer will be written here. It must point
+               to a valid malloc()'ed buffer or NULL.
+      c      - character to insert between each string or -1 for none.
+      ...    - NULL-terminated vararg list of string to catenate.
+</pre>
+<p class="item_name">RESULT</p>
+<pre>      True if buffer was successfully expanded/allocated. False if something
+      went wrong (usually not enough mem). In the latter case, the value of
+      (*buffer) will not be changed.
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>      <a href="#robo83">StrCat</a>
+</pre>
+
+<hr />
+<a name="String2fStrCatM">
+</a><a name="robo83"></a><h2>String/StrCatM, String/StrCat,<br />String/StrCatLen [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">String</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>StrCatM</strong>   - catenate a number of strings into a buffer
+      <strong>StrCat</strong>    - wrapper for <strong>StrCatM</strong>
+      <strong>StrCatLen</strong> - Also limit bytes to copy from source.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      int <strong>StrCatM</strong>(STRPTR dest, int max, int c, ...);
+      int <strong>StrCat</strong>(STRPTR dest, STRPTR src, int max);
+      int <strong>StrCatLen</strong>(STRPTR dst, STRPTR src, int max, int len);
+</pre>
+<p class="item_name">FUNCTION</p>
+<pre>      <strong>StrCatM</strong> will catenate NULL-terminated vararg list of strings into
+      the supplied buffer, which is "max" bytes length. Resulting string will
+      always be 0-terminated.
+
+      <strong>StrCat</strong> is a simple macro, that will expand to "<strong>StrCatM</strong>(dest, max, -1, src, NULL)".
+
+      <strong>StrCatLen</strong> will copy at most "len" bytes from "src" into "dst", which is
+      "max" bytes long.
+</pre>
+<p class="item_name">INPUT</p>
+<pre>      dest - Buffer where result will be written. Must be already initialized will
+             a NULL-terminated string.
+      max  - available bytes in dest.
+      c    - character to put between each string, -1 for none, if character
+             is already present at the end of a string, it won't be appended.
+      ...  - vararg list of string to catenate. MUST BE NULL terminated !!
+</pre>
+<p class="item_name">RESULT</p>
+<pre>      Number of character in "dest" (not including final 0), so that
+      "dest + result" should bring you to the end of string.
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>      <a href="#robo82">StrCatDup</a>
+</pre>
+
+<hr />
+<a name="String2fStrCount">
+</a><a name="robo84"></a><h2>String/StrCount [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">String</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>StrCount</strong> - Count character occuring in given string
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      int <strong>StrCount</strong>(STRPTR src, int chr);
+</pre>
+<p class="item_name">INPUT</p>
+<pre>      src - input buffer to scan. If NULL, 0 is returned.
+      chr - character to check, will be truncated to TEXT.
+</pre>
+
+<hr />
+<a name="String2fStripCRLF">
+</a><a name="robo85"></a><h2>String/StripCRLF [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">String</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>StripCRLF</strong> - remove trailing newline at end of string
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      STRPTR <strong>StripCRLF</strong>(STRPTR in);
+</pre>
+<p class="item_name">FUNCTION</p>
+<pre>      This function will modify given string, removing any trailing newline at the
+      end of buffer. This is usually useful when reading a text file line by line.
+      Note that it will removes both Unix (LF), <a href="./DOS_c.html#robo3">DOS</a> (CRLF) or Mac (CR) newlines.
+</pre>
+<p class="item_name">RESULT</p>
+<pre>      The address of input buffer is returned.
+</pre>
+
+<hr />
+<a name="String2fStrLenM">
+</a><a name="robo86"></a><h2>String/StrLenM [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">String</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>StrLenM</strong> - Computer length of multiple string in one call.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      int <strong>StrLenM</strong>(STRPTR src, ...);
+</pre>
+<p class="item_name">FUNCTION</p>
+<pre>      It will computer length (NOT including final 0) of the NULL-terminated
+      list passed as arguments.
+</pre>
+
+<hr />
+<a name="String2fStrReplace">
+</a><a name="robo87"></a><h2>String/StrReplace [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">String</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>StrReplace</strong> - Replace first occurence of a string.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      Bool <strong>StrReplace</strong>(STRPTR src, STRPTR find, STRPTR rep, int max);
+</pre>
+<p class="item_name">FUNCTION</p>
+<pre>      Replace first occurence of 'find' in 'src', replacing it by 'rep'. 'src'
+      buffer is supposed to be at most 'max' bytes. If buffer is too small to
+      contain a larger replacement string, buffer will be truncated.
+</pre>
+<p class="item_name">RESULT</p>
+<pre>      True if an occurence has been replaced, False otherwise.
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>      <a href="#robo83">StrCat</a>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./String.c with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.34 on Thu Mar 06 2008 10:21:26
+</p>
+</div> <!-- footer -->
+</body>
+</html>

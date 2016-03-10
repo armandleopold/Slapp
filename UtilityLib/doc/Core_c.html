@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./Core.c</title>
+<!-- Source: ./Core.c -->
+<!-- Generated with ROBODoc Version 4.99.34 (Jan  4 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Utility Library</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+<a class="menuitem" href="./robo_types.html#top">Types</a>
+<a class="menuitem" href="./robo_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<hr />
+<a name="SWL2fTYPES">
+</a><a name="robo11"></a><h2>SWL/TYPES [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">INTRODUCTION</p>
+<pre>      These are the basic datatypes used by functions of this library:
+      - TEXT    : character
+      - STRPTR  : NULL-terminated string.
+      - APTR    : void pointer.
+      - data8_t : 8bit buffer pointer.
+      - ULONG   : unsigned long integer.
+      - LONG    : singed long integer.
+
+      For fixed-size types, look in &lt;stdint.h&gt;.
+</pre>
+
+<hr />
+<a name="SWL2fLOG5fInfo">
+</a><a name="robo88"></a><h2>SWL/LOG_Info, SWL/LOG_InfoA [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>LOG_Info</strong>  - Log a string into a log file.
+      <strong>LOG_InfoA</strong> - va_list-based log function, instead of vararg.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      void <strong>LOG_Info</strong>(STRPTR fmt, ...);
+      void <strong>LOG_InfoA</strong>(STRPTR fmt, va_list args);
+</pre>
+<p class="item_name">FUNCTION</p>
+<pre>      These functions take a printf()-like format and will append the resulting
+      string, in the file "../logs/&lt;appname&gt;.log". If directory does not exists,
+      the string will be silently discarded.
+
+      <a href="#robo89">UtilityInit</a>() must have been called, otherwise message will also be silently
+      discarded.
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>      <a href="#robo89">UtilityInit</a>
+</pre>
+
+<hr />
+<a name="SWL2fUtilityInit">
+</a><a name="robo89"></a><h2>SWL/UtilityInit [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>UtilityInit</strong> - do some initial work for some part of the library.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      void <strong>UtilityInit</strong>(STRPTR app);
+</pre>
+<p class="item_name">FUNCTION</p>
+<pre>      Some functions require to be initialized before being able to call them
+      (especially network-oriented functions). Some modules obviously don't
+      require any initialization (<a href="./List_c.html#robo7">List</a>, <a href="./String_c.html#robo9">String</a>, <a href="./DOS_c.html#robo3">DOS</a>, <a href="./CGI_c.html#robo2">CGI</a>, <a href="./Thread_c.html#robo10">Thread</a>, DFA, <a href="./HashTable_c.html#robo5">Hash</a>,
+      ...), and it'll never hurt if you don't call this function if you plan
+      to just use that kind of modules.
+
+      srand() will be initialized with current time stamp.
+</pre>
+<p class="item_name">INPUT</p>
+<pre>      - app : name of application that will be used in a few places (list below).
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>      <a href="#robo88">LOG_Info</a>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./Core.c with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.34 on Thu Mar 06 2008 10:21:26
+</p>
+</div> <!-- footer -->
+</body>
+</html>

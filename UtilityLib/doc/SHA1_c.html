@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./SHA1.c</title>
+<!-- Source: ./SHA1.c -->
+<!-- Generated with ROBODoc Version 4.99.34 (Jan  4 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Utility Library</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+<a class="menuitem" href="./robo_types.html#top">Types</a>
+<a class="menuitem" href="./robo_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<hr />
+<a name="SWL2fSHA1">
+</a><a name="robo8"></a><h2>SWL/SHA1 [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">INTRODUCTION</p>
+<pre>      <strong>SHA1</strong> module provide a single function (<a href="#robo75">SHA1Digest</a>) to produce a fingerprint
+      of an arbitrary memory chunk. Should be less prone to collision than MD5.
+
+      Original source from Steve Reid.
+</pre>
+
+<hr />
+<a name="SHA12fSHA1Digest">
+</a><a name="robo75"></a><h2>SHA1/SHA1Digest [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">SHA1</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>SHA1Digest</strong> - compute <a href="#robo8">SHA1</a> fingerprint of given memory chunk
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      void <strong>SHA1Digest</strong>(void * buffer, int len, void * resblock);
+</pre>
+<p class="item_name">INPUT</p>
+<pre>      - buffer : source bytes used to compute fingerprint.
+      - len    : length in bytes of buffer. If &lt; 0, strlen will be used.
+</pre>
+<p class="item_name">RESULT</p>
+<pre>      - resblock : must be at least 41 bytes length. will contain the <a href="#robo8">SHA1</a> sum
+               encoded in ASCII and null-terminated. If buffer is NULL, result
+               will be an empty string.
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./SHA1.c with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.34 on Thu Mar 06 2008 10:21:26
+</p>
+</div> <!-- footer -->
+</body>
+</html>

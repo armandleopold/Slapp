@@ -1,0 +1,29 @@
+items:
+    NAME
+    FUNCTION
+    SYNOPSIS
+    INPUT
+    BUGS
+    EXAMPLE
+    EXAMPLES
+    SEE ALSO
+    RESULT
+    INTRODUCTION
+    NOTE
+options:
+    --src .
+    --doc ./doc
+    --html
+    --multidoc
+    --index
+    --tabsize 8
+    --css robodoc.css
+    --nodesc
+    --documenttitle "Utility Library"
+accept files:
+    *.c
+    *.h
+header markers:
+    /**
+end markers:
+    */

@@ -1,0 +1,282 @@
+/****h* ROBODoc/ROBODoc Cascading Style Sheet
+ * FUNCTION
+ *   This is the default cascading style sheet for documentation
+ *   generated with ROBODoc.
+ *   You can edit this file to your own liking and then use
+ *   it with the option
+ *      --css <filename>
+ *
+ *   This style-sheet defines the following layout
+ *      +----------------------------------------+
+ *      |    logo                                |
+ *      +----------------------------------------+
+ *      |    extra                               |
+ *      +----------------------------------------+
+ *      |                              | navi-   |
+ *      |                              | gation  |
+ *      |      content                 |         |
+ *      |                              |         |
+ *      +----------------------------------------+
+ *      |    footer                              |
+ *      +----------------------------------------+
+ *
+ *   This style-sheet is based on a style-sheet that was automatically
+ *   generated with the Strange Banana stylesheet generator.
+ *   See http://www.strangebanana.com/generator.aspx
+ *
+ ******
+ * $Id: html_generator.c,v 1.90 2007/06/14 15:13:02 thuffir Exp $
+ */
+
+body
+{
+    background-color: white;
+    color: rgb(98,84,55);
+    font-family: sans-serif;
+}
+
+pre
+{
+    margin: 15px;
+    padding: 5px;
+    white-space: pre;
+    color: #000;
+}
+
+pre.source
+{
+    background-color: #ffe;
+    border: dashed #aa9 1px;
+}
+
+p
+{
+    margin: 15px;
+}
+
+p.item_name 
+{
+    font-weight: bolder;
+    margin: 5px;
+    font-size: 120%;
+}
+
+#content
+{
+    font-size: 100%;
+    color: black;
+    background-color: white;
+    border: 0;
+    padding: 40px 31px 14px 17px;
+    text-align: justify;
+}
+
+#content h2.navletters
+{
+	font-size: 1em;
+}
+
+#content h2.navletters a
+{
+	font-weight: normal;
+	color: black;
+	border: 1px solid #ccc;
+	border-color: #eee #777 #777 #eee;
+	padding-left: 3px;
+	padding-right: 3px;
+	margin: 0;
+}
+
+#content h2.navletters a:hover
+{
+	border-color: #777 #eee #eee #777;
+	text-decoration: none;
+}
+
+#content h2.navletters span.sep
+{
+	display: none;
+}
+
+#content h2.navletters
+{
+	padding: 2px;
+}
+
+a.menuitem
+{
+    font-weight: normal;
+    color: white;
+    margin-right: 10px;
+}
+
+#navigation a.menuitem:after
+{
+	content: "|";
+	margin-left: 10px;
+	color: #888;
+}
+
+#navigation a.menuitem:hover
+{
+	text-decoration: underline;
+}
+
+#logo, #logo a
+{
+    font-size: 130%;
+    background: #0065ae url(bg_top.gif) repeat-x left bottom;
+    color: white;
+    font-family: serif;
+    font-weight: bold;
+    padding: 20px 18px 20px 18px;
+    text-align: right;
+}
+
+
+#extra
+{
+    display: none;
+}
+
+#content a
+{
+    color: #0065ae;
+    text-decoration: none;
+}
+
+#content a:hover, #content a:active
+{
+    text-decoration: underline;
+}
+
+a.indexitem
+{
+    display: block;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    background-color: rgb(221,221,221);
+    font-family:      Arial, serif;
+    font-style:       normal;
+    font-variant:     normal;
+    text-transform:   none;
+    font-weight:      normal;
+}
+
+h1
+{
+    font-size: 151%;
+}
+
+h2
+{
+    font-size: 142%;
+}
+
+h3
+{
+    font-size: 133%;
+}
+
+h4
+{
+    font-size: 124%;
+}
+
+h5
+{
+    font-size: 115%;
+}
+
+h6
+{
+    font-size: 106%;
+}
+
+#navigation a
+{
+    text-decoration: none;
+}
+
+a:hover
+{
+    text-decoration: underline;
+}
+
+#extra a
+{
+    text-decoration: none;
+}
+
+#logo a
+{
+    text-decoration: none;
+}
+
+/* layout */
+#navigation
+{
+    background-color: #000;
+    color: white;
+    padding-bottom: 1px;
+}
+
+.menuitem       {width: auto;}
+#content        {width: auto;}
+
+
+div#footer
+{
+    background: #0065ae url(bg_top.gif) repeat-x left bottom;
+    color: white;
+    clear: left;
+    width: 100%;
+    font-size: 71%;
+}
+
+div#footer a
+{
+    color: #88aaff;
+}
+
+div#footer p
+{
+    margin: 0;
+    padding: 5px 10px
+}
+
+span.keyword
+{
+    color: #00F;
+}
+
+span.comment
+{
+    color: #080;
+}
+
+span.quote
+{
+    color: #F00;
+}
+
+span.squote
+{
+    color: #F0F;
+}
+
+span.sign
+{
+    color: #008B8B;
+}
+
+
+@media print
+{
+    #navigation {display: none;}
+    #content    {padding: 0px;}
+    #content a  {text-decoration: underline;}
+}
+

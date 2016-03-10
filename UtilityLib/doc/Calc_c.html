@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./Calc.c</title>
+<!-- Source: ./Calc.c -->
+<!-- Generated with ROBODoc Version 4.99.34 (Jan  4 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Utility Library</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+<a class="menuitem" href="./robo_types.html#top">Types</a>
+<a class="menuitem" href="./robo_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<hr />
+<a name="SWL2fCalc">
+</a><a name="robo1"></a><h2>SWL/Calc [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">INTRODUCTION</p>
+<pre>      This is a self-contained module that lets you parse C-like expression,
+      including the use of named variable (which are read/written through a
+      callback). It supports the following operators (in decreasing precedence):
+
+              Op  Pri Assoc Meaning
+              =====================
+              -   15  Right (unary negative)
+              ~   15  Right (unary bit toggle)
+              !   15  Right (unary logical not, returns eitheir 0 or 1)
+              ++  14  Right (pre-increment of a variable name, no post-inc).
+              --  14  Right (pre-decrement of a variable)
+              *   13  Left  (multiplication)
+              /   13  Left  (division)
+              %   13  Left  (modulus)
+              +   12  Left  (addition)
+              -   12  Left  (substraction)
+              &gt;&gt;  11  Left  (right bit shift)
+              &lt;&lt;  11  Left  (left bit shift)
+              &lt;   10  Left  (logicial less than, returns eitheir 0 or 1)
+              &gt;   10  Left  (logical greater than)
+              &gt;=  10  Left  (logicial greater or equal than)
+              &lt;=  10  Left  (logicial less or equal than)
+              ==   9  Left  (equality test)
+              !=   9  Left  (inequality test)
+              &amp;    8  Left  (bit and)
+              ^    7  Left  (bit exclusive or)
+              |    6  Left  (bit or)
+              &amp;&amp;   5  Left  (logical and, short circuit useless clause)
+              ||   4  Left  (logical or)
+              ?:   3  Right (if else inline, short circuit useless clause)
+              =    2  Right (asignment into a variable)
+              /=, *=, %=, +=, -=, &lt;&lt;=, &gt;&gt;=, &amp;=, ^=, |=
+                   2  Right (operation and assignment combined)
+
+      Left association means that 1 + 2 - 3 + 4 is evaluated as (((1 + 2) - 3) + 4).
+      Right asscoiation means that ~!~!1 is evaluated as ~(!(~(!1))).
+
+      ( and ) can be used to alter default operator priority.
+
+      Promotion is also supported. I.e : "3/2" is the integer division between 3 and 2,
+      which is 1, while "3/2." is the real division between 3 and 2, that is 1.5.
+
+      Bit related operators will convert the operand into integer, if not already
+      (like in javascript).
+
+      Boolean operator &amp;&amp;, || and ?: support short circuit eval. I.e: if first operand
+      of a &amp;&amp; is false, second operand won't be evaluated, although syntax will be
+      checked.
+
+      Custom functions are not supported.
+
+      There a few things that does not work like C expression:
+      - Post increment not supported.
+      - Operators * (dereference), [] (array), &amp; (address), ., -&gt;, (type), sizeof,
+        and , are not supported.
+
+      For a full-featured embeddable language, check out the following projects :
+      - spidermonkey (<a href="http://www.mozilla.org/js/spidermonkey/">http://www.mozilla.org/js/spidermonkey/</a> )
+      - LUA (<a href="http://www.lua.org/">http://www.lua.org/</a> )
+</pre>
+
+<hr />
+<a name="Calc2fParseExpression">
+</a><a name="robo18"></a><h2>Calc/ParseExpression [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">Calc</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>ParseExpression</strong> - Parse C-like expression
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>      int <strong>ParseExpression</strong>(STRPTR exp, ParseExpCb cb, APTR data);
+</pre>
+<p class="item_name">FUNCTION</p>
+<pre>      This function will evaluate given string 'exp' as a C-like expression. See
+      introduction for supported features.
+
+      Note that error management is somewhat minimalist.
+</pre>
+<p class="item_name">INPUT</p>
+<pre>      - exp  : expression to parse, string will not be modified.
+      - cb   : callback used to get/set custom variable and to receive result.
+               Expected prototype for callback is:
+
+               void cb(STRPTR var, Variant v, int store, APTR data);
+
+               var   : name of variable to set/get. if NULL, result is passed in v.
+               v     : value of variable to set (if store == 1) or get (if store == 0).
+               store : whether callback should set or retrieve value of named variable.
+               data  : custom value given to <strong>ParseExpression</strong>.
+
+      - data : custom value passed to callback.
+</pre>
+<p class="item_name">NOTE</p>
+<pre>      Variant has 3 meaningful fields :
+      - v-&gt;type : must be set (or is set) to eitheir TYPE_INT or TYPE_DBL.
+      - v-&gt;v.z  : if v-&gt;type == TYPE_INT, then you can use this field to get/set value.
+      - v-&gt;v.r  : if v-&gt;type == TYPE_DBL, use this field.
+</pre>
+<p class="item_name">RESULT</p>
+<pre>      0 if no errors were found while parsing, PERR_* otherwise.
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./Calc.c with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.34 on Thu Mar 06 2008 10:21:26
+</p>
+</div> <!-- footer -->
+</body>
+</html>

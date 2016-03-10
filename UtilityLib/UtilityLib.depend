@@ -1,0 +1,197 @@
+# depslib dependency file v1.0
+1204820451 source:e:\projets\utilitylib\dos.c
+	"SWL.h"
+	<string.h>
+	<stdarg.h>
+	<ctype.h>
+	<windows.h>
+	<sys/stat.h>
+	<dirent.h>
+	<wchar.h>
+
+1207060125 e:\projets\utilitylib\swl.h
+	<stdio.h>
+	<stdarg.h>
+	<stdint.h>
+
+1205350177 source:e:\projets\utilitylib\list.c
+	"SWL.h"
+	<string.h>
+
+1207001257 source:e:\projets\utilitylib\sha1.c
+	"SWL.h"
+	<stdint.h>
+	<string.h>
+	<stdio.h>
+	<string.h>
+
+1205950337 source:e:\projets\utilitylib\string.c
+	"SWL.h"
+	<stdio.h>
+	<stdarg.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<time.h>
+
+1205350413 source:e:\projets\utilitylib\hashtable.c
+	"SWL.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1199197995 e:\projets\utilitylib\hashtable.h
+
+1199202662 e:\projets\utilitylib\hashtable_private.h
+	"hashtable.h"
+
+1204738950 source:e:\projets\utilitylib\cgi.c
+	"SWL.h"
+	<string.h>
+	<ctype.h>
+	<stdlib.h>
+
+1205263948 source:e:\projets\utilitylib\stream.c
+	"SWL.h"
+	<ctype.h>
+	<winsock2.h>
+
+1199311710 source:e:\projets\utilitylib\dfa.c
+	"SWL.h"
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
+1199502410 source:e:\projets\utilitylib\thread.c
+	"SWL.h"
+	<windows.h>
+	<process.h>
+
+1206540739 source:e:\projets\utilitylib\core.c
+	"SWL.h"
+	<time.h>
+	<winsock.h>
+	<fcntl.h>
+	<time.h>
+	<assert.h>
+	"Debug.h"
+
+1201970190 e:\projets\utilitylib\debug.h
+
+1202243601 source:e:\projets\utilitylib\argv.c
+	"SWL.h"
+	<stdlib.h>
+	<string.h>
+
+1206976816 source:e:\projets\utilitylib\ini.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<unistd.h>
+	"SWL.h"
+
+1199732764 source:c:\projets\utilitylib\argv.c
+	"SWL.h"
+	<stdlib.h>
+	<string.h>
+
+1199847099 c:\projets\utilitylib\swl.h
+	<stdio.h>
+	<stdarg.h>
+	<stdint.h>
+
+1199635546 source:c:\projets\utilitylib\cgi.c
+	"SWL.h"
+	<string.h>
+	<ctype.h>
+	<stdlib.h>
+
+1199850912 source:c:\projets\utilitylib\core.c
+	"SWL.h"
+	<time.h>
+	<winsock.h>
+	<fcntl.h>
+	<time.h>
+	<assert.h>
+	"Debug.h"
+
+1199475058 c:\projets\utilitylib\debug.h
+
+1199308110 source:c:\projets\utilitylib\dfa.c
+	"SWL.h"
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
+1199825598 source:c:\projets\utilitylib\dos.c
+	"SWL.h"
+	<string.h>
+	<stdarg.h>
+	<ctype.h>
+	<windows.h>
+	<sys/stat.h>
+	<dirent.h>
+
+1199499236 source:c:\projets\utilitylib\hashtable.c
+	"SWL.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1199483160 source:c:\projets\utilitylib\list.c
+	"SWL.h"
+	<string.h>
+
+1199483330 source:c:\projets\utilitylib\sha1.c
+	"SWL.h"
+	<stdint.h>
+	<string.h>
+
+1199388494 source:c:\projets\utilitylib\stream.c
+	"SWL.h"
+	<ctype.h>
+	<winsock2.h>
+
+1199816254 source:c:\projets\utilitylib\string.c
+	"SWL.h"
+	<stdio.h>
+	<stdarg.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<time.h>
+
+1199498810 source:c:\projets\utilitylib\thread.c
+	"SWL.h"
+	<windows.h>
+	<process.h>
+
+1199851157 source:c:\projets\utilitylib\ini.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"SWL.h"
+
+1200939215 source:e:\projets\utilitylib\encodings.c
+	"SWL.h"
+	<stdio.h>
+	<windows.h>
+	<wchar.h>
+
+1202746893 source:e:\projets\utilitylib\calc.c
+	<stdio.h>
+	<stdlib.h>
+	<stdarg.h>
+	<string.h>
+	<ctype.h>
+	"SWL.h"
+
+1206969331 source:e:\projets\utilitylib\lang.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"SWL.h"
+

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="UtilityLib" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output=".\UtilityLib.exe" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DCRASH_TEST" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output=".\libUtility.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="objs\" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-DBUILDING_DLL" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Linker>
+			<Add library="user32" />
+			<Add library="C:\Dev-Cpp\lib\libws2_32.a" />
+		</Linker>
+		<Unit filename="Argv.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="CGI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Calc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Core.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="DFA.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="DOS.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Debug.h">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="Encodings.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="HashTable.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="INI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lang.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="List.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="SHA1.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="SWL.h" />
+		<Unit filename="Stream.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="String.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Thread.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
