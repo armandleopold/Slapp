@@ -5,7 +5,7 @@ Dernier Auteur  : Armand
 Creation :
 05/02/2014
 
-Dernière modification :
+Derniï¿½re modification :
 22/02/2014
 
 Description :
@@ -15,20 +15,71 @@ Description :
 
 #include "../headers/linker.h"
 
-// Fonction qui permet d'éditer en brut la map
+int handler(void* conf, const char* section, const char* name, const char* value)
+{
+    Configuration* pconfig = (Configuration*)conf;
+
+    #define MATCH(s, n) strcmp(section, s) == 0 && strcmp(name, n) == 0
+
+    if (MATCH("PARAM_FENETRE", "largeur_tile")) {
+        pconfig->largeur_tile = atoi(value);
+    } else if (MATCH("PARAM_FENETRE", "hauteur_tile")) {
+        pconfig->hauteur_tile = atoi(value);
+    } else if (MATCH("PARAM_FENETRE", "nb_blocs_largeur")) {
+        pconfig->nb_blocs_largeur = atoi(value);
+    } else if (MATCH("PARAM_FENETRE", "nb_blocs_hauteur")) {
+        pconfig->nb_blocs_hauteur = atoi(value);
+    } else if (MATCH("PARAM_FENETRE", "largeur_fenetre")) {
+        pconfig->largeur_fenetre = atoi(value);
+    } else if (MATCH("PARAM_FENETRE", "hauteur_fenetre")) {
+        pconfig->hauteur_fenetre = atoi(value);
+    } else if (MATCH("PARAM_FENETRE", "fullscreen")) {
+        pconfig->fullscreen = atoi(value);
+    } else if (MATCH("PARAM_GRAPHIC_ENGINE", "image_par_secondes")) {
+        pconfig->image_par_secondes = atoi(value);
+    } else if (MATCH("PARAM_GRAPHIC_ENGINE", "taille_map_x")) {
+        pconfig->taille_map_x = atoi(value);
+    } else if (MATCH("PARAM_GRAPHIC_ENGINE", "taille_map_y")) {
+        pconfig->taille_map_y = atoi(value);
+    } else if (MATCH("PARAM_GRAPHIC_ENGINE", "marge_deplacement_x")) {
+        pconfig->marge_deplacement_x = atoi(value);
+    } else if (MATCH("PARAM_GRAPHIC_ENGINE", "marge_deplacement_y")) {
+        pconfig->marge_deplacement_y = atoi(value);
+    } else if (MATCH("PARAM_PHYSIC_ENGINE", "gravity")) {
+        pconfig->gravity = atoi(value);
+    } else if (MATCH("PARAM_PHYSIC_ENGINE", "vitesse_de_chute_max")) {
+        pconfig->vitesse_de_chute_max = atoi(value);
+    } else if (MATCH("PARAM_MENU", "nbr_bouton")) {
+        pconfig->nbr_bouton = atoi(value);
+    } else if (MATCH("PARAM_MENU", "top_menu_y")) {
+        pconfig->top_menu_y = atoi(value);
+    } else if (MATCH("PARAM_GUI", "separateur")) {
+        pconfig->separateur = atoi(value);
+    } else if (MATCH("PARAM_AUDIO", "musique")) {
+        pconfig->musique = atoi(value);
+    } else if (MATCH("PARAM_AUDIO", "effets")) {
+        pconfig->effets = atoi(value);
+    } else {
+        return 0;  /* unknown section/name, error */
+    }
+
+    return 1;
+}
+
+// Fonction qui permet d'ï¿½diter en brut la map
 int MAP_EDITOR_loader(SDL_Window *window,char *nom_de_la_map2,char *musique,char *background,int creation)
 {
     /*-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
                                                                                  /*                                                                                */
-        int exit_value = 0;                                                      /* Valeur de retour pour tester l'état final du moteur graphique                  */
-        int leave = 0;                                                           /* variable qui met fin à la while                                                */
-        int etat_curseur = 0;                                                    /* variable qui défini si on édite ou pas                                         */
+        int exit_value = 0;                                                      /* Valeur de retour pour tester l'ï¿½tat final du moteur graphique                  */
+        int leave = 0;                                                           /* variable qui met fin ï¿½ la while                                                */
+        int etat_curseur = 0;                                                    /* variable qui dï¿½fini si on ï¿½dite ou pas                                         */
         int current_tiles_cursor_int = 0;                                        /* le type de la tile courante                                                    */
-        int x,y;                                                                 /* les coordonnées de l'écran sur la map                                          */
-        int tile_select_cursor = 0;                                              /* variable qui compte la position du type de tile selectionné courant.           */
+        int x,y;                                                                 /* les coordonnï¿½es de l'ï¿½cran sur la map                                          */
+        int tile_select_cursor = 0;                                              /* variable qui compte la position du type de tile selectionnï¿½ courant.           */
                                                                                  /*                                                                                */
         struct Map map;                                                          /* La map                                                                         */
-        struct Coordonnees position_absolue;                                     /* la variable qui contient la position absolue de la fenetre par rapport à la map*/
+        struct Coordonnees position_absolue;                                     /* la variable qui contient la position absolue de la fenetre par rapport ï¿½ la map*/
         struct Coordonnees grille;                                               /* la variable qui contient les dimensions de la fenetre en tiles                 */
         struct Coordonnees taille_fenetre;                                       /* Variables qui contient la dimension en nombres de tiles de la taille_fenetre   */
                                                                                  /*                                                                                */
@@ -37,7 +88,7 @@ int MAP_EDITOR_loader(SDL_Window *window,char *nom_de_la_map2,char *musique,char
         SDL_Surface* ecran =  SDL_GetWindowSurface(window);                      /* l'ecran                                                                        */
         SDL_Surface* current_tiles_cursor;                                       /* l'image de la tile courante                                                    */
         SDL_Surface* curseur_tiles_png = IMG_Load("tiles/curseur.png");          /* l'image du curseur                                                             */
-        SDL_Surface* curseur_tiles_png_edit = IMG_Load("tiles/curseur_edit.png");/* l'image du curseur en mode édition                                             */
+        SDL_Surface* curseur_tiles_png_edit = IMG_Load("tiles/curseur_edit.png");/* l'image du curseur en mode ï¿½dition                                             */
                                                                                  /*                                                                                */
         SDL_Event event;                                                         /* gestion des events                                                             */
                                                                                  /*                                                                                */
@@ -55,13 +106,13 @@ int MAP_EDITOR_loader(SDL_Window *window,char *nom_de_la_map2,char *musique,char
 
     sprintf(nom_de_la_map,"map/%s",nom_de_la_map2);
 
-    // Récupération des données stockées dans les fichiers
+    // Rï¿½cupï¿½ration des donnï¿½es stockï¿½es dans les fichiers
     printf("\tChargement de la map : %s\n",nom_de_la_map);
 
     // on charge la map
     exit_value = ENGINE_Loader(nom_de_la_map,&map,tiles);
 
-    // Si on créer la map pour la première fois, alors on initialise les variables par défauts
+    // Si on crï¿½er la map pour la premiï¿½re fois, alors on initialise les variables par dï¿½fauts
     if (creation == 1)
     {
         sprintf(map.musique,"musique/%s",musique);
@@ -70,7 +121,7 @@ int MAP_EDITOR_loader(SDL_Window *window,char *nom_de_la_map2,char *musique,char
         map.start.y = 0;
     }
 
-    // On charge les tiles spéciales
+    // On charge les tiles spï¿½ciales
     tiles[98] = IMG_Load("tiles/startmarker.png");
     tiles[99] = IMG_Load("tiles/stopmarker.png");
 
@@ -83,7 +134,7 @@ int MAP_EDITOR_loader(SDL_Window *window,char *nom_de_la_map2,char *musique,char
         positionCurrentTilesSelected.y = 10;
         current_tiles_cursor = tiles[0];
 
-        // On initialise la grille à 0 et la position absolue de la fenetre à 0
+        // On initialise la grille ï¿½ 0 et la position absolue de la fenetre ï¿½ 0
         grille.x = 0;
         grille.y = 0;
 
@@ -106,13 +157,13 @@ int MAP_EDITOR_loader(SDL_Window *window,char *nom_de_la_map2,char *musique,char
 
         while(leave == 0)
         {
-            start = SDL_GetTicks(); // on récupère le temps
+            start = SDL_GetTicks(); // on rï¿½cupï¿½re le temps
             // GESTIONNAIRE D EVENEMENTS
-            while (SDL_PollEvent(&event)) // Récupération des actions de l'utilisateur
+            while (SDL_PollEvent(&event)) // Rï¿½cupï¿½ration des actions de l'utilisateur
             {
                 switch(event.type)
                 {
-                    case SDL_KEYDOWN: // Relâchement d'une touche
+                    case SDL_KEYDOWN: // Relï¿½chement d'une touche
                         if(event.key.keysym.sym == SDLK_ESCAPE
                         && etat_curseur == 0)
                         {
@@ -121,11 +172,11 @@ int MAP_EDITOR_loader(SDL_Window *window,char *nom_de_la_map2,char *musique,char
 
                             switch(event.key.keysym.sym)
                             {
-                                case SDLK_1: // Tile spécial : point de départ
+                                case SDLK_1: // Tile spï¿½cial : point de dï¿½part
                                     current_tiles_cursor = tiles[98];
                                     current_tiles_cursor_int = 1;
                                     break;
-                                case SDLK_2: // Tile spécial : point d'arrivée
+                                case SDLK_2: // Tile spï¿½cial : point d'arrivï¿½e
                                     current_tiles_cursor = tiles[99];
                                     current_tiles_cursor_int = 2;
                                     break;
@@ -339,7 +390,7 @@ int MAP_EDITOR_loader(SDL_Window *window,char *nom_de_la_map2,char *musique,char
     return exit_value;
 }
 
-// Fonction qui récupère lesdifférentes variables des tiles
+// Fonction qui rï¿½cupï¿½re lesdiffï¿½rentes variables des tiles
 int get_data_tiles(struct tiles_spec *table)
 {
     FILE* flux = fopen("map/tiles_config.slapp","rb");
@@ -469,7 +520,7 @@ int ajouter_tile(SDL_Window *window)
     obj[0].pos_y = ecran->h/2 - obj[0].hauteur/2;
     obj[0].id = 0;
 
-    nombre = get_data_tiles(table); // on récupère les tiles
+    nombre = get_data_tiles(table); // on rï¿½cupï¿½re les tiles
 
     if (nombre == 0)
     {
@@ -569,12 +620,12 @@ int modifier_tile(SDL_Window *window)
     obj[0].pos_y = ecran->h/2 - obj[0].hauteur/2;
     obj[0].id = 0;
 
-    // On récupère le type de tiles
+    // On rï¿½cupï¿½re le type de tiles
     if(GUI_spam(window,obj[0],3,"Modifier : Type de tiles :",temp_string,NULL) > 0)
     {
         new_tile.type = atoi(temp_string);
 
-        nombre = get_data_tiles(table); // On récupère le nombre de tiles enregistrés
+        nombre = get_data_tiles(table); // On rï¿½cupï¿½re le nombre de tiles enregistrï¿½s
         for (i = 0; i < nombre; ++i)
         {
             if (table[i].type == new_tile.type) // on atteint la tile en question
@@ -669,12 +720,12 @@ int supprimer_tile(SDL_Window *window)
     obj[0].pos_y = ecran->h/2 - obj[0].hauteur/2;
     obj[0].id = 0;
 
-    // On récupère le type de tiles
+    // On rï¿½cupï¿½re le type de tiles
     if(GUI_spam(window,obj[0],3,"Supprimer : Type de tiles :",temp_string,NULL) > 0)
     {
         new_tile.type = atoi(temp_string);
 
-        nombre = get_data_tiles(table); // On récupère le nombre de tiles enregistrés
+        nombre = get_data_tiles(table); // On rï¿½cupï¿½re le nombre de tiles enregistrï¿½s
         for (i = 0; i < nombre; ++i)
         {
             if (table[i].type == new_tile.type) // on atteint la tile en question
@@ -711,7 +762,7 @@ int supprimer_tile(SDL_Window *window)
     return erreur;
 }
 
-// Fonction qui permet de gérer les tiles
+// Fonction qui permet de gï¿½rer les tiles
 int MAP_EDITOR_gestionnaire_de_tiles(SDL_Window *window)
 {
     int return_value = 0;
@@ -754,8 +805,8 @@ int MAP_EDITOR_gestionnaire_de_tiles(SDL_Window *window)
     btn[1].pos_y = ecran->h/2 - btn[1].hauteur/2;
     btn[1].id = 1;
 
-    nombre = get_data_tiles(table); // On récupère le nombre de tiles enregistrés
-    afficher_table(window,table,nombre,0); // On affiche les données brutes
+    nombre = get_data_tiles(table); // On rï¿½cupï¿½re le nombre de tiles enregistrï¿½s
+    afficher_table(window,table,nombre,0); // On affiche les donnï¿½es brutes
 
     GUI_DISPLAY_button(btn[0],ecran,"Ajouter une tiles");
     GUI_DISPLAY_button(btn[2],ecran,"Modifier une tiles");
@@ -767,10 +818,10 @@ int MAP_EDITOR_gestionnaire_de_tiles(SDL_Window *window)
     {
         start = SDL_GetTicks();
 
-        if (refresh_load_file == 1) // Si on a ajouté une tile, on recharge le fichier
+        if (refresh_load_file == 1) // Si on a ajoutï¿½ une tile, on recharge le fichier
         {
-            nombre = get_data_tiles(table); // On récupère le nombre de tiles enregistrés
-            afficher_table(window,table,nombre,tile_select_cursor); // On affiche les données brutes
+            nombre = get_data_tiles(table); // On rï¿½cupï¿½re le nombre de tiles enregistrï¿½s
+            afficher_table(window,table,nombre,tile_select_cursor); // On affiche les donnï¿½es brutes
             refresh_load_file = 0;
         }
 
@@ -795,7 +846,7 @@ int MAP_EDITOR_gestionnaire_de_tiles(SDL_Window *window)
                     refresh_load_file = 1;
                 }
 
-                case SDL_KEYDOWN: // Relâchement d'une touche
+                case SDL_KEYDOWN: // Relï¿½chement d'une touche
                 {
                     if(event.key.keysym.sym == SDLK_ESCAPE)
                     {
@@ -885,7 +936,7 @@ int GLOBAL_MOTEUR_EDITEUR(SDL_Window *window)
 
     /*-----------------------------------------------------------------------------------------*/
 
-    sprintf(temps, "Släpp Map Editor v 2.1");
+    sprintf(temps, "Slï¿½pp Map Editor v 2.1");
 
     render = TTF_RenderText_Blended(comforta, temps, blanc);
 
@@ -943,10 +994,10 @@ int GLOBAL_MOTEUR_EDITEUR(SDL_Window *window)
     // Boucle d' evenements
     while(quit == 0)
     {
-        start = SDL_GetTicks(); // on récupère le temps
+        start = SDL_GetTicks(); // on rï¿½cupï¿½re le temps
 
         SDL_WaitEvent(&event);
-        while(SDL_PollEvent(&event)); // Récupération des actions de l'utilisateur(while pour une bonne utilisation)
+        while(SDL_PollEvent(&event)); // Rï¿½cupï¿½ration des actions de l'utilisateur(while pour une bonne utilisation)
         {
             switch(event.type)
             {
@@ -955,7 +1006,7 @@ int GLOBAL_MOTEUR_EDITEUR(SDL_Window *window)
                     quit=1;
                 }
 
-                case SDL_KEYDOWN: // Relâchement d'une touche
+                case SDL_KEYDOWN: // Relï¿½chement d'une touche
                 {
                     if(event.key.keysym.sym == SDLK_ESCAPE)
                     {
@@ -989,7 +1040,7 @@ int GLOBAL_MOTEUR_EDITEUR(SDL_Window *window)
                             if(GUI_spam(window,obj[4],3,"Entrer le nom de la map :",nom_de_la_map,NULL) == 1
                             && nom_de_la_map[0] != '\0')
                             {
-                                if(GUI_spam(window,obj[4],3,"Musique associé à la map :",musique,NULL) == 1)
+                                if(GUI_spam(window,obj[4],3,"Musique associï¿½ ï¿½ la map :",musique,NULL) == 1)
                                 {
                                     if(GUI_spam(window,obj[4],3,"Background de la map :",background,NULL) == 1)
                                     {
@@ -1122,12 +1173,12 @@ void ENGINGE_LOG_afficher_table(struct tiles_spec *table,int nombre)
     }
 }
 
-// Fonction pouvant être appelée pour réinitialiser les parametres par default du moteur graphique
+// Fonction pouvant ï¿½tre appelï¿½e pour rï¿½initialiser les parametres par default du moteur graphique
 void ENGINE_SET_defaultConfigFile()
 {
-    //const float gravity = 9.81; // constante de gravité
+    //const float gravity = 9.81; // constante de gravitï¿½
     //const int width = 1280; // largeur par defaut de la fenetre
-    //const int height = 1024; // hauteur par défaut de la fenetre
+    //const int height = 1024; // hauteur par dï¿½faut de la fenetre
 
     FILE* flux = fopen("engine_config.slapp","wb");
     if (flux == NULL)
@@ -1137,7 +1188,7 @@ void ENGINE_SET_defaultConfigFile()
     fclose(flux);
 }
 
-// Fonction qui réinitialise la console pour afficher les infos du moteur graphique
+// Fonction qui rï¿½initialise la console pour afficher les infos du moteur graphique
 void ENGINE_INIT_console_engine()
 {
     // Initialisation de la console
@@ -1149,13 +1200,13 @@ void ENGINE_INIT_console_engine()
     printf("Starting...\n\n");
 }
 
-// Fonction qui renvois le nombres de tiles constructibles par rapport à la résolution de la fenètre courante
+// Fonction qui renvois le nombres de tiles constructibles par rapport ï¿½ la rï¿½solution de la fenï¿½tre courante
 struct Coordonnees ENGINE_POCESS_nombresDeTiles(SDL_Window *window)
 {
     struct Coordonnees recup_nrb_tiles;
 
     SDL_Point taille_fenetre;
-    SDL_GetWindowSize(window,&taille_fenetre.x,&taille_fenetre.y); // on récupère la taille de la fenetre
+    SDL_GetWindowSize(window,&taille_fenetre.x,&taille_fenetre.y); // on rï¿½cupï¿½re la taille de la fenetre
 
     recup_nrb_tiles.x = taille_fenetre.x/32; // on calcule le nombre de tiles en x
     recup_nrb_tiles.y = taille_fenetre.y/32; // on calcule le nombre de tiles en y
@@ -1163,7 +1214,7 @@ struct Coordonnees ENGINE_POCESS_nombresDeTiles(SDL_Window *window)
     return recup_nrb_tiles;
 }
 
-// Fonction qui ajuste la taille de la fenetre de manière à garder toujours le même format en l'occurence 16/9
+// Fonction qui ajuste la taille de la fenetre de maniï¿½re ï¿½ garder toujours le mï¿½me format en l'occurence 16/9
 void ENGINE_SET_tailleFenetre(const SDL_Event *event,SDL_Window *window,int priorite)
 {
     if ((event->type == SDL_WINDOWEVENT
@@ -1196,7 +1247,7 @@ void ENGINE_SET_tailleFenetre(const SDL_Event *event,SDL_Window *window,int prio
             // on augmente la hauteur pour garder le format 16/9
             new_size_w = size_w - size_w%32;
             new_size_h = (9*new_size_w/16) - (9*new_size_w/16)%32;
-            if (new_size_h > size_h) // si l'ecran n'est pas assez grand en hauteur on réduit la largeur
+            if (new_size_h > size_h) // si l'ecran n'est pas assez grand en hauteur on rï¿½duit la largeur
             {
                 new_size_h = size_h;
                 new_size_w = size_w;
@@ -1267,7 +1318,7 @@ void ENGINE_INIT_console()
            linked.major, linked.minor, linked.patch);
 }
 
-// Fonction qui contrôle l'état de la fenetre
+// Fonction qui contrï¿½le l'ï¿½tat de la fenetre
 void ENGINE_LOG_fenetre(const SDL_Event *event)
 {
     if (event->type == SDL_WINDOWEVENT)

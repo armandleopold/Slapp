@@ -22,10 +22,10 @@ Description :
 #include <time.h>
 	
 // AJOUT LIB SDL
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_mixer.h>
+#include "SDL.h"
+#include "SDL_image.h"
+#include "SDL_ttf.h"
+#include "SDL_mixer.h"
 
 // Ajout LIB OpenGL
 #include <GL/gl.h>
@@ -45,4 +45,4 @@ Description :
 #include "moteur_ia.h"
 #include "hero.h"
 #include "inii.h"
-#include "../UtilityLib/SWl.h"
+#include "ini.h"

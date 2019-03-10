@@ -1,6 +1,0 @@
-#ifndef RESOURCE_RC_INCLUDED
-#define RESOURCE_RC_INCLUDED
-
-MAIN ICON "slapp_logo_ICON.ico"
-
-#endif

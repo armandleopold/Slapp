@@ -16,6 +16,9 @@ Description :
 #ifndef ENGINE_H_INCLUDED
 #define ENGINE_H_INCLUDED
 
+	// Fonction qui permet de charger la configuration
+	int handler(void* conf, const char* section, const char* name, const char* value);
+
 	// Fonction qui permet d'éditer en brut la map
 	int MAP_EDITOR_loader(SDL_Window *window,char *nom_de_la_map2,char *musique,char *background,int creation);
 

@@ -32,6 +32,7 @@ au début comme ça on pourrait modifier des paramètres du jeux sans avoir à l
     #define NB_BLOCS_HAUTEUR     23 // 20
     #define LARGEUR_FENETRE      LARGEUR_TILE * NB_BLOCS_LARGEUR //32*40 = 1280
     #define HAUTEUR_FENETRE      HAUTEUR_TILE * NB_BLOCS_HAUTEUR //32*20 = 640
+    #define FULLSCREEN           0
 
     /* Parametres Moteur graphique */
     #define IMAGE_PAR_SECONDES 60

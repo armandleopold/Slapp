@@ -5,7 +5,7 @@ Dernier Auteur  : Armand
 Creation :
 24/01/2014
 
-Dernière modification :
+DerniÃ¨re modification :
 08/03/2014
 
 Description :
@@ -30,7 +30,7 @@ void MAIN_chargement_sdl()
         atexit(SDL_Quit);
     }
 
-     // Initialisation de l'API TTF pour afficher du texte
+    // Initialisation de l'API TTF pour afficher du texte
 
     if(TTF_Init() < 0)
     {
@@ -42,7 +42,7 @@ void MAIN_chargement_sdl()
         atexit(TTF_Quit);
     }
 
-     //Initialisation de l'API Mixer pour jouer du son
+    //Initialisation de l'API Mixer pour jouer du son
 
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) < 0)
     {
@@ -61,14 +61,14 @@ int main(int argc, char *argv[])
     MAIN_chargement_sdl();
 
     /*----------------------------------------------------------------------------*/
-                                         /*                                       */
-        SDL_Window   *splash_screen;     /* La fenetre                            */
-        SDL_Renderer *splash_renderer;   /* La surface graphique                  */
-        SDL_Texture  *splash_tx;         /* La surface logique                    */
-        SDL_Rect position_menu;          /* La position de rendering pour l'image */
-                                         /*                                       */
-        int w, h;                        /* Variables taille de l'image chargée   */
-                                         /*                                       */
+    /*                                       */
+    SDL_Window   *splash_screen;     /* La fenetre                            */
+    SDL_Renderer *splash_renderer;   /* La surface graphique                  */
+    SDL_Texture  *splash_tx;         /* La surface logique                    */
+    SDL_Rect position_menu;          /* La position de rendering pour l'image */
+    /*                                       */
+    int w, h;                        /* Variables taille de l'image chargÃ©e   */
+    /*                                       */
     /*----------------------------------------------------------------------------*/
 
     splash_screen = SDL_CreateWindow(   "splash screen",
@@ -78,10 +78,10 @@ int main(int argc, char *argv[])
                                         360,
                                         SDL_WINDOW_BORDERLESS);
 
-    splash_renderer = SDL_CreateRenderer(splash_screen, -1, SDL_RENDERER_ACCELERATED);
+    splash_renderer = SDL_CreateRenderer(splash_screen, -1, SDL_RENDERER_SOFTWARE);
 
     if (splash_screen != NULL
-    &&  splash_renderer != NULL)
+        &&  splash_renderer != NULL)
     {
         // Fonctions d'initialisation
         SDL_SetHint             (SDL_HINT_RENDER_SCALE_QUALITY, "linear");
@@ -90,18 +90,18 @@ int main(int argc, char *argv[])
         SDL_RenderClear         (splash_renderer);
 
         // Chargement de l'image
-        splash_tx = IMG_LoadTexture(splash_renderer,"artwork/splash_screen.png");
+        splash_tx = IMG_LoadTexture(splash_renderer,"./artwork/splash_screen.png");
 
-        // Récupération de sa dimension
+        // RÃ©cupÃ©ration de sa dimension
         SDL_QueryTexture(splash_tx, NULL, NULL, &w, &h);
 
-        // Positionnement centré de l'image par rapport à la fenetre
-        position_menu.x = fabs(718/2 - w/2);
+        // Positionnement centrÃ© de l'image par rapport Ã  la fenetre
+        position_menu.x = (int) fabs(718 / 2 - w / 2);
         position_menu.y = 0;
         position_menu.w = w;
         position_menu.h = h;
 
-        // On applique l'image à notre ecran
+        // On applique l'image Ã  notre ecran
         SDL_RenderCopy(splash_renderer,splash_tx,NULL,&position_menu);
 
         // On affiche l'ecran
@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
         // On attend une demi-seconde
         SDL_Delay(500);
 
-        // On détruit tout
+        // On dÃ©truit tout
         SDL_DestroyTexture (splash_tx);
         SDL_DestroyRenderer(splash_renderer);
         SDL_DestroyWindow  (splash_screen);
@@ -121,60 +121,67 @@ int main(int argc, char *argv[])
     }
 
     // On check le fichier de config
-    check_config_file();
+//    check_config_file();
 
     /*---------------------------------------------------------------------------------*/
-                                        /*                                             */
-        SDL_Window   *fenetre;          /* La fenetre                                  */
-        SDL_Renderer *ecran;            /* L'ecran                                     */
-                                        /*                                             */
-        SDL_Surface *icon;              /* L'icone de la fenetre                       */
-                                        /*                                             */
-        INIFile ini_fichier;            /* Le buffer du fichier de configuration       */
-                                        /*                                             */
-        int largeur_fenetre = 0;        /*                                             */
-        int hauteur_fenetre = 0;        /*                                             */
-                                        /*                                             */
+    /*                                             */
+    SDL_Window   *fenetre;          /* La fenetre                                  */
+    SDL_Renderer *ecran;            /* L'ecran                                     */
+    /*                                             */
+    SDL_Surface *icon;              /* L'icone de la fenetre                       */
+    /*                                             */
+    Configuration configuration;            /* Le buffer du fichier de configuration       */
+    /*                                             */
+    int largeur_fenetre = 0;        /*                                             */
+    int hauteur_fenetre = 0;        /*                                             */
+    /*                                             */
     /*---------------------------------------------------------------------------------*/
 
-    // On récupère les variables de définition de résolution de la fenetre
-    ini_fichier     = ParseINI("config.ini");
-    largeur_fenetre = GetINIValueInt(ini_fichier,"PARAM_FENETRE/nb_blocs_largeur",40)*32;
-    hauteur_fenetre = GetINIValueInt(ini_fichier,"PARAM_FENETRE/nb_blocs_hauteur",23)*32;
+    // On rÃ©cupÃ¨re les variables de dÃ©finition de rÃ©solution de la fenetre
 
-    // On créer la fenetre
-    if(GetINIValueInt(ini_fichier,"PARAM_FENETRE/fullscreen",-1) == 1) // Fenetre plein écran
-    {
-        fenetre  = SDL_CreateWindow("SLAPP Beta 1.0.1",
-                                           SDL_WINDOWPOS_CENTERED,
-                                           SDL_WINDOWPOS_CENTERED,
-                                           0,
-                                           0,
-                                           SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_OPENGL);
-
-        // On créer le renderer de la fenetre
-        ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
-                SDL_GetWindowSize(fenetre,&largeur_fenetre,&hauteur_fenetre);
-    }
-    else // Mode fenetré
-    {
-        fenetre  = SDL_CreateWindow("SLAPP Beta 1.0.1",
-                                           SDL_WINDOWPOS_CENTERED,
-                                           SDL_WINDOWPOS_CENTERED,
-                                           largeur_fenetre,
-                                           hauteur_fenetre,
-                                           SDL_WINDOW_OPENGL);
-
-        // On créer le renderer de la fenetre
-        ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
+    if (ini_parse("config.ini", handler, &configuration) < 0) {
+        printf("Can't load 'config.ini'\n");
+        return 1;
     }
 
-    FreeINI(ini_fichier);
+//    largeur_fenetre = configuration.nb_blocs_largeur*32;
+//    hauteur_fenetre = configuration.nb_blocs_hauteur*32;
+
+    largeur_fenetre = NB_BLOCS_LARGEUR*32;
+    hauteur_fenetre = NB_BLOCS_HAUTEUR*32;
+
+    // On crÃ©er la fenetre
+//    if(configuration.fullscreen == 1) // Fenetre plein Ã©cran
+    if(FULLSCREEN == 1) // Fenetre plein Ã©cran
+    {
+        fenetre  = SDL_CreateWindow("SLAPP Beta 1.0.1",
+                                    SDL_WINDOWPOS_CENTERED,
+                                    SDL_WINDOWPOS_CENTERED,
+                                    0,
+                                    0,
+                                    SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_OPENGL);
+
+        // On crÃ©er le renderer de la fenetre
+        ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
+        SDL_GetWindowSize(fenetre,&largeur_fenetre,&hauteur_fenetre);
+    }
+    else // Mode fenetrÃ©
+    {
+        fenetre  = SDL_CreateWindow("SLAPP Beta 1.0.1",
+                                    SDL_WINDOWPOS_CENTERED,
+                                    SDL_WINDOWPOS_CENTERED,
+                                    largeur_fenetre,
+                                    hauteur_fenetre,
+                                    SDL_WINDOW_OPENGL);
+
+        // On crÃ©er le renderer de la fenetre
+        ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_SOFTWARE);
+    }
 
     if (fenetre != NULL
-    &&  ecran != NULL)
+        &&  ecran != NULL)
     {
-        // On initialise l'écran
+        // On initialise l'Ã©cran
         SDL_RenderSetLogicalSize(ecran,largeur_fenetre,hauteur_fenetre);
         SDL_SetHint             (SDL_HINT_RENDER_SCALE_QUALITY, "linear");
         SDL_SetRenderDrawColor  (ecran, 0, 0, 0, 255);

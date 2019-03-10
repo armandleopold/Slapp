@@ -160,3 +160,25 @@ struct Joueur {
 	int load;
 
 };
+
+typedef struct {
+	int largeur_tile;
+	int hauteur_tile;
+	int nb_blocs_largeur;
+	int nb_blocs_hauteur;
+	int largeur_fenetre;
+	int hauteur_fenetre;
+	int fullscreen;
+	int image_par_secondes;
+	int taille_map_x;
+	int taille_map_y;
+	int marge_deplacement_x;
+	int marge_deplacement_y;
+	int gravity;
+	int vitesse_de_chute_max;
+	int nbr_bouton;
+	int top_menu_y;
+	int separateur;
+	int musique;
+	int effets;
+} Configuration;

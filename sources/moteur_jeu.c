@@ -1775,15 +1775,20 @@ int Phase1(SDL_Window *fenetre, SDL_Renderer *Renderer)
 	int init_timestamp;
 	int temps_actuel;
 
-    INIFile ini_fichier = ParseINI("config.ini");
+	Configuration configuration;
 
-    largeur_fenetre = GetINIValueInt(ini_fichier,"PARAM_FENETRE/nb_blocs_largeur",-1);
+	if (ini_parse("config.ini", handler, &configuration) < 0) {
+		printf("Can't load 'test.ini'\n");
+		return 1;
+	}
+
+//    largeur_fenetre = configuration.nb_blocs_largeur;
+	largeur_fenetre = NB_BLOCS_LARGEUR;
     largeur_fenetre = largeur_fenetre*32;
 
-    hauteur_fenetre = GetINIValueInt(ini_fichier,"PARAM_FENETRE/nb_blocs_hauteur",-1);
+//    hauteur_fenetre = configuration.nb_blocs_hauteur;
+	hauteur_fenetre = NB_BLOCS_HAUTEUR;
     hauteur_fenetre = hauteur_fenetre*32;
-
-    FreeINI(ini_fichier);
 
     Nb_aleatoire_a_b(0, largeur_fenetre-100, X_aleatoire, TAILLE_X_ALEATOIRE); // remplissage du tableau X_aleatoire
     Nb_aleatoire_a_b(hauteur_fenetre, hauteur_fenetre*2, Y_aleatoire, TAILLE_Y_ALEATOIRE); // remplissage du tableau Y_aleatoire
